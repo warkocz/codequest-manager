@@ -28,6 +28,8 @@ end
 group :development do
   gem 'spring'
   gem 'hirb'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :assets do
