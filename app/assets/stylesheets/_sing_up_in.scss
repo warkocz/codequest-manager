@@ -24,57 +24,5 @@
     width: 100px;
     margin: 0 auto 60px auto;
   }
-
-  form {
-    margin: auto;
-    position: relative;
-    width: 450px;
-
-    .input {
-      border: none;
-      background-color: transparent;
-      box-shadow:none;
-      color: white;
-      font-weight: 100;
-      font-size: 30px;
-      font-family: $lato-italic;
-      outline: none;
-      padding: 6px 10px;
-      width: 100%;
-    }
-
-
-    .field {
-      border-bottom: 1px solid white;
-      display: inline-block;
-      margin-bottom: 45px;
-      width: 100%;
-    }
-
-    .form-row {
-      height: 45px;
-      padding-bottom: 60px;
-      margin: 30px 0;
-    }
-
-    .label {
-      display: inline-block;
-      font-size: 14px;
-      font-weight: 100;
-      float: left;
-    }
-
-    .btn-right {
-      position: absolute;
-      right: 0;
-    }
-
-    a {
-      color: rgb(196, 189, 189);
-      display: inline-block;
-      font-size: 12px;
-      margin: 0 8px;
-    }
-  }
 }
 
