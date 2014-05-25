@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'lato';
+  src: asset-url('fonts/lato-lig-webfont.eot');
+  src: asset-url('fonts/lato-lig-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('fonts/lato-lig-webfont.woff') format('woff'),
+  asset-url('fonts/lato-lig-webfont.ttf') format('truetype'),
+  asset-url('fonts/lato-lig-webfont.svg#latolight') format('svg');
+  font-weight: 100;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lato';
+  src: asset-url('fonts/lato-reg-webfont.eot');
+  src: asset-url('fonts/lato-reg-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('fonts/lato-reg-webfont.woff') format('woff'),
+  asset-url('fonts/lato-reg-webfont.ttf') format('truetype'),
+  asset-url('fonts/lato-reg-webfont.svg#latoregular') format('svg');
+  font-weight: 200;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lato';
+  src: asset-url('fonts/lato-bol-webfont.eot');
+  src: asset-url('fonts/lato-bol-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('fonts/lato-bol-webfont.woff') format('woff'),
+  asset-url('fonts/lato-bol-webfont.ttf') format('truetype'),
+  asset-url('fonts/lato-bol-webfont.svg#latobold') format('svg');
+  font-weight: 300;
+  font-style: normal;
+
+}
+
+
+@font-face {
+  font-family: 'lato-italic';
+  src: asset-url('fonts/lato-ligita-webfont.eot');
+  src: asset-url('fonts/lato-ligita-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('fonts/lato-ligita-webfont.woff') format('woff'),
+  asset-url('fonts/lato-ligita-webfont.ttf') format('truetype'),
+  asset-url('fonts/lato-ligita-webfont.svg#latolight_italic') format('svg');
+  font-weight: 100;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lato-italic';
+  src: asset-url('fonts/lato-haiita-webfont.eot');
+  src: asset-url('fonts/lato-haiita-webfont.eot?#iefix') format('embedded-opentype'),
+  asset-url('fonts/lato-haiita-webfont.woff') format('woff'),
+  asset-url('fonts/lato-haiita-webfont.ttf') format('truetype'),
+  asset-url('fonts/lato-haiita-webfont.svg#latohairline_italic') format('svg');
+  font-weight: 200;
+  font-style: normal;
+
+}
+
+

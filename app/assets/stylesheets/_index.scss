@@ -1,0 +1,70 @@
+.login {
+  background-image: url('1.jpg');
+  background-repeat: repeat;
+  color: $white;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+
+  .wrapper {
+    padding-top: 80px;
+  }
+
+  .logo {
+    background-image: url('cq-logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: inline-block;
+    height: 300px;
+    width: 294px;
+    margin-bottom: 50px;
+  }
+
+  .line {
+    background-image: url('line.png');
+    background-repeat: no-repeat;
+    height: 10px;
+    padding-bottom: 60px;
+  }
+
+  .login-list {
+    padding-top: 60px;
+
+    li {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, .1);
+      display: inline-block;
+      overflow: hidden;
+      padding: 11px 50px;
+      text-align: center;
+      transition: all 0.5s ease;
+      vertical-align: middle;
+
+      &:hover {
+        border: 2px solid rgba(255, 255, 255, 1);
+      }
+
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      vertical-align: middle;
+    }
+  }
+
+  h2 {
+    font-size: 40px;
+    padding-bottom: 60px;
+  }
+
+  span {
+    font-size: 17px;
+    font-family: $lato-italic;
+  }
+}
+
