@@ -44,10 +44,10 @@
       &:hover {
         border: 2px solid rgba(255, 255, 255, 1);
       }
+    }
 
-      &:first-child {
-        margin-right: 30px;
-      }
+    .space {
+      margin-left: 130px;
     }
 
     a {
@@ -63,7 +63,7 @@
   }
 
   span {
-    font-size: 17px;
+    font-size: 22px;
     font-family: $lato-italic;
   }
 }
