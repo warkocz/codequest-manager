@@ -25,6 +25,16 @@ body {
   }
 }
 
+section {
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
 .wrapper {
   margin: auto;
   width: 1140px;
