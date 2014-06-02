@@ -2,7 +2,7 @@ development:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: codequest_manager_development
+  database: codequestmanager_development
   pool: 5
   username: postgres
   password: postgres
@@ -11,7 +11,7 @@ test:
   adapter: postgresql
   host: localhost
   encoding: unicode
-  database: codequest_manager_test
+  database: codequestmanager_test
   pool: 5
   username: postgres
   password: postgres

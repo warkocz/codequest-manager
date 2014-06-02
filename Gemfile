@@ -38,4 +38,8 @@ group :assets do
   gem 'coffee-rails', '~> 4.0.0'
 end
 
+group :test do
+  gem 'rake'
+end
+
 gem 'sdoc', '~> 0.4.0', group: :doc
