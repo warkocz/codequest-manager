@@ -1,5 +1,7 @@
+@import "common/mixins";
+
 .index {
-  background-image: url('2.jpg');
+  background-image: url(<%= asset_path('2.jpg') %>);
 
   .wrapper {
     padding-top: 120px;
@@ -7,7 +9,7 @@
   }
 
   .logo {
-    background-image: url('cq-logo.png');
+    background-image: url(<%= asset_path('cq-logo.png') %>);
     background-repeat: no-repeat;
     background-size: cover;
     display: inline-block;
@@ -17,7 +19,7 @@
   }
 
   .line {
-    background-image: url('line.png');
+    background-image: url(<%= asset_path('line.png') %>);
     background-repeat: no-repeat;
     background-position: center;
     height: 10px;

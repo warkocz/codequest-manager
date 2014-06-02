@@ -1,5 +1,5 @@
 .sessions.new {
-  background-image: url('1.jpg');
+  background-image: url(<%= asset_path('1.jpg')%>);
 
   .wrapper {
     padding-top: 110px;
@@ -11,7 +11,7 @@
   }
 
   .line {
-    background-image: url('line.png');
+    background-image: url(<%= asset_path('line.png') %>);
     background-repeat: no-repeat;
     background-position: center;
     height: 10px;
