@@ -11,7 +11,7 @@ describe UsersController, type: :controller do
 
     it 'redirects not signed in user to root' do
       get :dashboard
-      expect(response).to redirect_to new_user_session_path
+      expect(response).to redirect_to root_path
     end
   end
 end

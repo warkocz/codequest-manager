@@ -43,6 +43,7 @@ end
 
 group :test do
   gem 'rake'
+  gem 'mocha'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
