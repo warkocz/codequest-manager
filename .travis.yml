@@ -1,6 +1,9 @@
 language: ruby
 rvm:
   - 2.1.1
-
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
 before_script:
   - psql -c 'create database codequestmanager_test;' -U postgres
