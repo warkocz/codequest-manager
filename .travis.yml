@@ -3,4 +3,4 @@ rvm:
   - 2.1.1
 
 before_script:
-  - psql -c 'create database codequestmanager_test;' -U postgres -P postgres
+  - psql -c 'create database codequestmanager_test;' -U postgres
