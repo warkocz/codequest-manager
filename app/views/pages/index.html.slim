@@ -2,7 +2,7 @@ ul.login-list
   - if current_user
     li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
   - else
-    li.button = link_to 'Sign In', new_user_session_path
+    li.button = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
 .logo
 h2 code quest manager
 .line
