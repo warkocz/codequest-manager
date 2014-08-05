@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require foundation.min
 //= require_tree .
+
+$(document).foundation();
