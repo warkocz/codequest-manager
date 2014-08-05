@@ -44,7 +44,8 @@ end
 
 group :test do
   gem 'rake'
-  gem 'mocha'
+  gem 'shoulda-matchers', require: false
+  gem 'shoulda-callback-matchers', require: false
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc

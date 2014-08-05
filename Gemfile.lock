@@ -101,12 +101,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    metaclass (0.0.4)
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.4.0)
-    mocha (1.1.0)
-      metaclass (~> 0.0.1)
     multi_json (1.10.1)
     multi_test (0.1.1)
     multi_xml (0.5.5)
@@ -185,6 +182,10 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
+    shoulda-callback-matchers (1.1.0)
+      activesupport (>= 3)
+    shoulda-matchers (2.6.2)
+      activesupport (>= 3.0.0)
     skim (0.9.3)
       coffee-script
       coffee-script-source (>= 1.2.0)
@@ -241,7 +242,6 @@ DEPENDENCIES
   hirb (= 0.7.2)
   jbuilder (~> 2.0)
   jquery-rails (= 3.1.1)
-  mocha
   newrelic_rpm (= 3.9.1.236)
   omniauth
   omniauth-google-oauth2
@@ -252,6 +252,8 @@ DEPENDENCIES
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  shoulda-callback-matchers
+  shoulda-matchers
   skim (= 0.9.3)
   slim-rails (= 2.1.5)
   turbolinks (= 2.2.2)
