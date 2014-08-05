@@ -7,5 +7,12 @@ describe PagesController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
+
+    it 'redirects logged in user to dashboard' do
+      @user = create(:user)
+      sign_in @user
+      get :index
+      expect(response).to redirect_to users_dashboard_path
+    end
   end
 end
