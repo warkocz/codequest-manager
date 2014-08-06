@@ -38,27 +38,39 @@ describe OrdersController, :type => :controller do
   end
 
   describe 'GET edit' do
+    before do
+      @order = build(:order) do |order|
+        order.orderer = @user
+      end
+      @order.save
+    end
     it 'renders edit page' do
       sign_in @user
-      get :edit
+      get :edit, id: @order.id
       expect(response).to render_template :edit
     end
 
     it 'redirects to index when not logged in' do
-      get :edit
+      get :edit, id: @order.id
       expect(response).to redirect_to root_path
     end
   end
 
   describe 'POST update' do
+    before do
+      @order = build(:order) do |order|
+        order.orderer = @user
+      end
+      @order.save
+    end
     it 'redirects to dashboard after' do
       sign_in @user
-      post :update, order: {orderer_id: @user.id}
+      put :update, id: @order.id, order: {orderer_id: @user.id}
       expect(response).to redirect_to users_dashboard_path
     end
 
     it 'redirects to index when not logged in' do
-      post :update
+      put :update, id: @order.id
       expect(response).to redirect_to root_path
     end
   end
