@@ -1,1 +1,7 @@
 h1 This is the user dashboard
+.order-wrapper
+  - if @order
+    = render 'orders/dashboard', locals: {order: @order}
+  - else
+    h2 No order for today
+    = link_to 'Add order', new_order_path, class: 'button'

@@ -1,0 +1,4 @@
+section.orderer
+  .row Today #{@order.orderer.name} pays.
+  .row
+    = link_to 'Change payer', edit_order_path(@order), class: 'button'

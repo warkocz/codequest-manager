@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get 'users/dashboard'
+
+  resources :orders, only: [:new, :create, :edit, :update]
 end

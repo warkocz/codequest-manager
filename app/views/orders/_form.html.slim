@@ -1,0 +1,7 @@
+- if @order.persisted?
+  h1 Edit order
+- else
+  h1 New order
+= form_for @order do |f|
+  = f.select :orderer_id, options_for_select(@users)
+  = f.submit class: 'button'
