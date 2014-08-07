@@ -3,5 +3,6 @@
 - else
   h1 New order
 = form_for @order do |f|
-  = f.select :orderer_id, options_for_select(@users)
+  - selected = @order.orderer_id if @order.persisted?
+  = f.select :orderer_id, options_for_select(@users, selected)
   = f.submit class: 'button'
