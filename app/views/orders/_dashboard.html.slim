@@ -1,4 +1,5 @@
 section.orderer
   .row Today #{@order.orderer.name} pays.
+  .row The sum of the order is: #{@order.amount}
   .row
     = link_to 'Change payer', edit_order_path(@order), class: 'button'

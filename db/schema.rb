@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805215157) do
+ActiveRecord::Schema.define(version: 20140807203414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dishes", force: true do |t|
+    t.string   "name"
+    t.decimal  "cost",       default: 0.0
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dishes", ["order_id"], name: "index_dishes_on_order_id", using: :btree
+  add_index "dishes", ["user_id"], name: "index_dishes_on_user_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.date     "date"

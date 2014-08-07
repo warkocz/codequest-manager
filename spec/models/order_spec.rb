@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Order, :type => :model do
 
   it {should belong_to(:orderer)}
+  it {should have_many(:dishes)}
   it {should callback(:ensure_one_order_per_day).before(:create)}
   it {should validate_presence_of(:orderer)}
 
@@ -25,6 +26,21 @@ describe Order, :type => :model do
       mock = double('Order')
       expect(Order).to receive(:find_by).with(date: Date.today).and_return(mock)
       expect(Order.todays_order).to eq(mock)
+    end
+  end
+
+  describe '#amout' do
+    it 'should return 0 when no dishes' do
+      order = Order.new date: Date.today
+      expect(order).to receive(:dishes).and_return([])
+      expect(order.amount).to eq(0)
+    end
+
+    it 'should return 1 when there is a dish' do
+      order = Order.new date: Date.today
+      dish = double('Dish')
+      expect(order).to receive(:dishes).and_return([dish])
+      expect(order.amount).to eq(1)
     end
   end
 end

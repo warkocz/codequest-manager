@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   belongs_to :orderer, class_name: 'User'
+  has_many :dishes
 
   before_create :ensure_one_order_per_day
 
@@ -12,5 +13,9 @@ class Order < ActiveRecord::Base
   def ensure_one_order_per_day
     return if Order.find_by date: Date.today
     true
+  end
+
+  def amount
+    dishes.count
   end
 end
