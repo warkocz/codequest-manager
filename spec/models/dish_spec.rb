@@ -4,7 +4,7 @@ describe Dish, :type => :model do
   it {should belong_to(:user)}
   it {should belong_to(:order)}
   it {should callback(:ensure_uniqueness).before(:create)}
-  it {should validate_numericality_of(:cost)}
+  it {should validate_numericality_of(:price)}
   it {should validate_presence_of(:name)}
 
   describe '#ensure_uniqueness' do

@@ -4,6 +4,10 @@ describe UsersController, type: :controller do
   describe 'GET #dashboard' do
     it 'shows dasboard to signed in user' do
       @user = create(:user)
+      @order = build(:order) do |order|
+        order.orderer = @user
+      end
+      @order.save!
       sign_in @user
       get :dashboard
       expect(response).to render_template :dashboard

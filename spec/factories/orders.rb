@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :order do
-    date "2014-08-05"
+    date Date.today
     orderer nil
   end
 end
