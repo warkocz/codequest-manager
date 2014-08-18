@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new order_params
+    @order = Order.new order_params.merge(date: Date.today)
     if @order.save
       redirect_to users_dashboard_path
     else
@@ -37,6 +37,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:orderer_id).merge(date: Date.today)
+    params.require(:order).permit(:orderer_id)
   end
 end

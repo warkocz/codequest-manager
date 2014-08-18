@@ -61,6 +61,7 @@ section {
 }
 
 // Form
+// TODO rewrite this to work nicely with foundation
 
 .form {
   margin: auto;
@@ -121,4 +122,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .row {
   margin-bottom: 15px;
+}
+
+label {
+  color: white;
+  font-weight: lighter;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+form {
+  width: 450px;
+  margin: auto;
 }

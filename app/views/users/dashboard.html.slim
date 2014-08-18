@@ -10,11 +10,11 @@ h1 This is the user dashboard
     - other_dishes = @order.other_dishes(current_user)
     section.dishes
       - if current_dish
-        = render partial: 'dishes/show', locals: {dish: current_dish}
+        = render partial: 'dishes/show', locals: {dish: current_dish, order: @order}
       - else
         .row You haven't ordered anything yet
         .row
-          = link_to 'Click here to order', '#', class: 'button'
+          = link_to 'Click here to order', new_order_dish_path(@order), class: 'button'
     section.others-dishes
       - if other_dishes.count > 0
         = render partial: 'dishes/table', locals: {dishes: other_dishes}

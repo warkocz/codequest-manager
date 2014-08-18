@@ -8,4 +8,4 @@ table
       th= dish.name
       th= dish.price
 .row
-  = link_to 'Edit your order', '#', class: 'button'
+  = link_to 'Edit your order', edit_order_dish_path(order, dish), class: 'button'
