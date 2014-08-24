@@ -20,6 +20,8 @@ gem 'dynopoker'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
+gem 'draper', '~> 1.3'
+
 group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails', '~> 3.0.0.beta'
