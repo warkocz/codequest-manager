@@ -23,6 +23,7 @@ class DishesController < ApplicationController
     if @dish.update(dish_params)
       redirect_to users_dashboard_path
     else
+      flash.now[:alert] = @dish.errors.full_messages.join(' ')
       render :edit
     end
   end
