@@ -46,6 +46,7 @@ group :test do
   gem 'rake'
   gem 'shoulda-matchers', require: false
   gem 'shoulda-callback-matchers', require: false
+  gem 'simplecov', require: false
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
