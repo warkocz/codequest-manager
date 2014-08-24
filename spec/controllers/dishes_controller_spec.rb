@@ -84,4 +84,29 @@ describe DishesController, :type => :controller do
       expect(response).to redirect_to root_path
     end
   end
+
+  describe 'DELETE destroy' do
+    before do
+      @dish = build(:dish) do |dish|
+        dish.user = @user
+        dish.order = @order
+      end
+      @dish.save
+    end
+    it 'redirects to dashboard after' do
+      sign_in @user
+      delete :destroy, order_id: @order.id, id: @dish.id
+      expect(response).to redirect_to users_dashboard_path
+    end
+    it 'decrements the dishes count' do
+      sign_in @user
+      expect {
+        delete :destroy, order_id: @order.id, id: @dish.id
+      }.to change(Dish, :count).by(-1)
+    end
+    it 'redirects to index when not logged in' do
+      delete :destroy, order_id: @order.id, id: @dish.id
+      expect(response).to redirect_to root_path
+    end
+  end
 end

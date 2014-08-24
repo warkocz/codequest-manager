@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get 'users/dashboard'
 
   resources :orders, only: [:new, :create, :edit, :update] do
-    resources :dishes, only: [:new, :create, :edit, :update]
+    resources :dishes, except: [:show]
   end
 end

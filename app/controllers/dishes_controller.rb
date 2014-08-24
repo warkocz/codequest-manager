@@ -7,9 +7,11 @@ class DishesController < ApplicationController
   end
 
   def create
-    if @order.dishes.create(dish_params)
+    @dish = @order.dishes.build(dish_params)
+    if @dish.save
       redirect_to users_dashboard_path
     else
+      flash.now[:alert] = @dish.errors.full_messages.join(' ')
       render :new
     end
   end
@@ -26,6 +28,12 @@ class DishesController < ApplicationController
       flash.now[:alert] = @dish.errors.full_messages.join(' ')
       render :edit
     end
+  end
+
+  def destroy
+    @dish = Dish.find params[:id]
+    @dish.delete
+    redirect_to users_dashboard_path
   end
 
   private
