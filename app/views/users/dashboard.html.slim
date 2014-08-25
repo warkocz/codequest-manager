@@ -1,22 +1,9 @@
 h1 This is the user dashboard
 .order-wrapper
   - if @order
-    = render partial: 'orders/dashboard', locals: {order: @order}
+    = render partial: 'orders/summary', locals: {order: @order}
   - else
     h2 No order for today
     = link_to 'Add order', new_order_path, class: 'button'
   - if @order
-    - current_dish = @order.dish_for_user(current_user)
-    - other_dishes = @order.other_dishes(current_user)
-    section.dishes
-      - if current_dish
-        = render partial: 'dishes/show', locals: {dish: current_dish, order: @order}
-      - else
-        .row You haven't ordered anything yet
-        .row
-          = link_to 'Click here to order', new_order_dish_path(@order), class: 'button'
-    section.others-dishes
-      - if other_dishes.count > 0
-        = render partial: 'dishes/table', locals: {dishes: other_dishes}
-      - else
-        .row No one else has been bothered to order.
+    = render partial: 'orders/show', locals: {order: @order}
