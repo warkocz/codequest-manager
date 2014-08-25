@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
   belongs_to :orderer, class_name: 'User'
-  has_many :dishes
+  has_many :dishes, dependent: :destroy
 
   before_create :ensure_one_order_per_day
 
