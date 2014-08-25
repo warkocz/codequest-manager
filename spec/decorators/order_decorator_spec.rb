@@ -1,25 +1,31 @@
 require 'spec_helper'
 
 describe OrderDecorator do
-  describe '#dish_for_user' do
+  before do
+    @user = create(:user)
+    @order = build(:order) do |order|
+      order.orderer = @user
+    end
+    @order.save!
+    @order = @order.decorate
+  end
+
+  describe '#user_ordered?' do
     before do
-      @user = create(:user)
-      @order = build(:order) do |order|
-        order.orderer = @user
-      end
-      @order.save!
-      @order = @order.decorate
-    end
-    it 'should return nil when no dish' do
-      expect(@order.dish_for_user(@user)).to be_nil
-    end
-    it 'should return a dish' do
-      dish = create(:dish) do |dish|
-        dish.user = @user
+      @other_user = create(:other_user)
+      @dish = build(:dish) do |dish|
+        dish.user = @other_user
         dish.order = @order
       end
-      dish.save!
-      expect(@order.dish_for_user(@user)).to eq(dish)
+      @dish.save!
+    end
+
+    it 'returns false when users differ' do
+      expect(@order.user_ordered?(@user)).to be_falsey
+    end
+
+    it 'returns true when users do not differ' do
+      expect(@order.user_ordered?(@other_user)).to eq(@dish)
     end
   end
 

@@ -1,0 +1,10 @@
+section.dishes
+  - unless order.user_ordered?(current_user)
+    .row You haven't ordered anything yet
+    .row
+      = link_to 'Click here to order', new_order_dish_path(order), class: 'button'
+section.others-dishes
+  - if order.dishes.size > 0
+    = render partial: 'dishes/table', locals: {dishes: order.dishes}
+  - else
+    .row No one else has been bothered to order.
