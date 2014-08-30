@@ -2,7 +2,7 @@ class Dish < ActiveRecord::Base
   belongs_to :user
   belongs_to :order, counter_cache: true
 
-  validates :price, numericality: true, presence: true
+  validates :price_cents, numericality: true, presence: true
   validates :name, presence: true
 
   before_create :ensure_uniqueness

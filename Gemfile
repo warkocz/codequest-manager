@@ -21,6 +21,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'draper', '~> 1.3'
+gem 'money-rails', '0.12.0'
 
 group :development, :test do
   gem 'cucumber-rails', :require => false

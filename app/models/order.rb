@@ -17,6 +17,6 @@ class Order < ActiveRecord::Base
   end
 
   def amount
-    dishes.inject(0) {|sum, dish| sum + dish.price }
+    dishes.inject(0) {|sum, dish| sum + dish.price_cents }
   end
 end

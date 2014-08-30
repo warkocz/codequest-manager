@@ -25,18 +25,18 @@ describe DishesController, :type => :controller do
     it 'creates an order' do
       sign_in @user
       expect {
-        post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price: 14.3}
+        post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price_cents: 14}
       }.to change(Dish, :count)
     end
 
     it 'redirects to dashboard after' do
       sign_in @user
-      post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price: 14.3}
+      post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price_cents: 14}
       expect(response).to redirect_to users_dashboard_path
     end
 
     it 'redirects to index when not logged in' do
-      post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price: 14.3}
+      post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price_cents: 14}
       expect(response).to redirect_to root_path
     end
   end
@@ -70,17 +70,17 @@ describe DishesController, :type => :controller do
     end
     it 'redirects to dashboard after' do
       sign_in @user
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13.3}
+      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 13}
       expect(response).to redirect_to users_dashboard_path
     end
     it 'flashes error when price is not a number' do
       sign_in @user
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 'pankrac'}
+      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 'pancras'}
       expect(response).to render_template :edit
       expect(flash[:alert]).to be
     end
     it 'redirects to index when not logged in' do
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13.3}
+      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 13}
       expect(response).to redirect_to root_path
     end
   end

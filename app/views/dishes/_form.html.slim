@@ -5,8 +5,8 @@
 = form_for [@order, @dish] do |f|
   = f.label :name, 'Dish Name'
   = f.text_field :name
-  = f.label :price, 'Dish Price'
-  = f.text_field :price, autocomplete: 'off'
+  = f.label :price_cents, 'Dish Price'
+  = f.text_field :price_cents, autocomplete: 'off'
   - user_id = if @dish.persisted? then @dish.user_id else current_user.id end
   = f.hidden_field :user_id, value: user_id
   = f.submit class: 'button'
