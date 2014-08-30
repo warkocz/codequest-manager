@@ -21,13 +21,13 @@ describe OrdersController, :type => :controller do
     it 'creates an order' do
       sign_in @user
       expect {
-        post :create, order: {user_id: @user.id}
+        post :create, order: {user_id: @user.id, from: 'A restaurant'}
       }.to change(Order, :count)
     end
 
     it 'redirects to dashboard after' do
       sign_in @user
-      post :create, order: {user_id: @user.id}
+      post :create, order: {user_id: @user.id, from: 'A restaurant'}
       expect(response).to redirect_to users_dashboard_path
     end
 

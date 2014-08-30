@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :order do
     date Date.today
+    from 'The best restaurant'
     user nil
   end
 end
