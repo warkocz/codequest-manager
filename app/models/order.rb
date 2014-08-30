@@ -1,10 +1,10 @@
 class Order < ActiveRecord::Base
-  belongs_to :orderer, class_name: 'User'
+  belongs_to :user
   has_many :dishes, dependent: :destroy
 
   before_create :ensure_one_order_per_day
 
-  validates :orderer, presence: true
+  validates :user, presence: true
 
   def self.todays_order
     find_by date: Date.today

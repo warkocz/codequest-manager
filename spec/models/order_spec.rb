@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Order, :type => :model do
 
-  it {should belong_to(:orderer)}
+  it {should belong_to(:user)}
   it {should have_many(:dishes)}
   it {should callback(:ensure_one_order_per_day).before(:create)}
-  it {should validate_presence_of(:orderer)}
+  it {should validate_presence_of(:user)}
 
   describe '#ensure_one_order_per_day' do
     it 'should return true if no orders for the day' do

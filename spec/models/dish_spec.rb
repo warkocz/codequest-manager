@@ -12,7 +12,7 @@ describe Dish, :type => :model do
     before do
       @user = create(:user)
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save
     end

@@ -5,7 +5,7 @@ describe UsersController, type: :controller do
     it 'shows dasboard to signed in user' do
       @user = create(:user)
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save!
       sign_in @user

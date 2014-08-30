@@ -4,7 +4,7 @@ describe DishesController, :type => :controller do
   before do
     @user = create(:user)
     @order = build(:order) do |order|
-      order.orderer = @user
+      order.user = @user
       order.save
     end
   end
@@ -108,5 +108,28 @@ describe DishesController, :type => :controller do
       delete :destroy, order_id: @order.id, id: @dish.id
       expect(response).to redirect_to root_path
     end
+  end
+
+  describe 'GET copy' do
+    # before do
+    #   @other_user = create(:@other_user)
+    #   @dish = build(:dish) do |dish|
+    #     dish.user = @user
+    #     dish.order = @order
+    #   end
+    #   @dish.save
+    # end
+    # it 'copies a new dish' do
+    #   sign_in @other_user
+    #   expect {
+    #     get :copy, order_id: @order.id, id: @dish.id
+    #   }.to change(Dish, :count).by(1)
+    # end
+    # it 'doesnt copy a dish if a user already has a dish in that order' do
+    #   sign_in @user
+    #   expect {
+    #     get :copy, order_id: @order.id, id: @dish.id
+    #   }
+    # end
   end
 end

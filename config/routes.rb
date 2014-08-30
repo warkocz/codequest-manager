@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'users/dashboard'
 
   resources :orders, only: [:new, :create, :edit, :update] do
-    resources :dishes, except: [:show]
+    resources :dishes, except: [:show] do
+      get :copy, on: :member
+    end
   end
 end

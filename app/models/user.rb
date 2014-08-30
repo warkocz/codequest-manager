@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu)
 
-  has_many :orders, as: :orderer
+  has_many :orders
 
   devise :database_authenticatable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 

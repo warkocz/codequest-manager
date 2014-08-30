@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :order do
     date Date.today
-    orderer nil
+    user nil
   end
 end

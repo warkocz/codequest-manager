@@ -21,13 +21,13 @@ describe OrdersController, :type => :controller do
     it 'creates an order' do
       sign_in @user
       expect {
-        post :create, order: {orderer_id: @user.id}
+        post :create, order: {user_id: @user.id}
       }.to change(Order, :count)
     end
 
     it 'redirects to dashboard after' do
       sign_in @user
-      post :create, order: {orderer_id: @user.id}
+      post :create, order: {user_id: @user.id}
       expect(response).to redirect_to users_dashboard_path
     end
 
@@ -40,7 +40,7 @@ describe OrdersController, :type => :controller do
   describe 'GET edit' do
     before do
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save
     end
@@ -59,13 +59,13 @@ describe OrdersController, :type => :controller do
   describe 'POST update' do
     before do
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save
     end
     it 'redirects to dashboard after' do
       sign_in @user
-      put :update, id: @order.id, order: {orderer_id: @user.id}
+      put :update, id: @order.id, order: {user_id: @user.id}
       expect(response).to redirect_to users_dashboard_path
     end
 
