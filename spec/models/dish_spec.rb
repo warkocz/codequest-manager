@@ -33,4 +33,26 @@ describe Dish, :type => :model do
       expect(dish.ensure_uniqueness).to be_falsey
     end
   end
+
+  describe '#copy' do
+    before do
+      @user = create(:user)
+      @other = create(:other_user)
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+      @dish = build(:dish) do |dish|
+        dish.user = @user
+        dish.order = @order
+      end
+      @dish.save
+    end
+    it 'should return an instance of dish' do
+      @new_dish = @dish.copy(@other_user)
+      expect(@new_dish.user).to eq(@other_user)
+      expect(@new_dish.name).to eq(@dish.name)
+      expect(@new_dish.order).to eq(@order)
+    end
+  end
 end

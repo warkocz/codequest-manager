@@ -1,6 +1,7 @@
 class DishesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_order
+  before_filter :find_dish, only: [:copy, :destroy, :edit]
 
   def new
     @dish = @order.dishes.build
@@ -17,7 +18,6 @@ class DishesController < ApplicationController
   end
 
   def edit
-    @dish = Dish.find params[:id]
   end
 
   def update
@@ -31,15 +31,27 @@ class DishesController < ApplicationController
   end
 
   def destroy
-    @dish = Dish.find params[:id]
     @dish.delete
     redirect_to users_dashboard_path
+  end
+
+  def copy
+    @new_dish = @dish.copy(current_user)
+    if @new_dish.save
+      redirect_to users_dashboard_path
+    else
+      redirect_to users_dashboard_path, alert: @new_dish.errors.full_messages.join(' ')
+    end
   end
 
   private
 
   def find_order
     @order = Order.find(params[:order_id])
+  end
+
+  def find_dish
+    @dish = @order.dishes.find(params[:id])
   end
 
   def dish_params

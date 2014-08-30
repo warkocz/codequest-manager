@@ -10,7 +10,16 @@ class Dish < ActiveRecord::Base
   scope :by_date, -> {order('created_at')}
 
   def ensure_uniqueness
-    return if Dish.find_by order: order, user: user
+    if Dish.find_by order: order, user: user
+      errors[:base] << 'You can have only one dish in an order'
+      return false
+    end
     true
+  end
+
+  def copy(new_user)
+    new_dish = dup
+    new_dish.user = new_user
+    new_dish
   end
 end
