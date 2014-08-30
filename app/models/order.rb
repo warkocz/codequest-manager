@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
   before_create :ensure_one_order_per_day
 
   validates :user, presence: true
+  validates :from, presence: true
 
   def self.todays_order
     find_by date: Date.today

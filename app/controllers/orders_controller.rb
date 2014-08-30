@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     if @order.update(order_params)
       redirect_to users_dashboard_path
     else
-      render :edit
+      redirect_to edit_order_path(@order), alert: @order.errors.full_messages.join(' ')
     end
   end
 
@@ -37,6 +37,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:user_id)
+    params.require(:order).permit(:user_id, :from)
   end
 end

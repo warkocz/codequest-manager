@@ -1,5 +1,6 @@
 section.orderer
-  .row Today #{order.user.name} pays.
-  .row The sum of the order is: #{order.amount}
+  .row.light-weight Today <strong>#{order.user.name}</strong> pays.
+  .row.light-weight We're ordering from: <strong>#{order.from}</strong>
+  .row.light-weight The sum of the order is: <strong>#{order.amount}</strong>
   .row
     = link_to 'Change payer', edit_order_path(order), class: 'button'
