@@ -5,6 +5,9 @@ class Dish < ActiveRecord::Base
   validates :price_cents, numericality: true, presence: true
   validates :name, presence: true
 
+  register_currency :pln
+  monetize :price_cents
+
   before_create :ensure_uniqueness
 
   scope :by_date, -> {order('created_at')}

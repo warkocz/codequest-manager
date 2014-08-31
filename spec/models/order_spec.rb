@@ -39,9 +39,9 @@ describe Order, :type => :model do
     it 'should return 15 when there is a dish' do
       order = Order.new date: Date.today
       dish = double('Dish')
-      expect(dish).to receive(:price_cents).and_return(15.0)
+      expect(dish).to receive(:price).and_return(Money.new(15,'PLN'))
       expect(order).to receive(:dishes).and_return([dish])
-      expect(order.amount).to eq(15.0)
+      expect(order.amount).to eq(Money.new(15,'PLN'))
     end
   end
 

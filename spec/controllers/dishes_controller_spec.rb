@@ -70,17 +70,11 @@ describe DishesController, :type => :controller do
     end
     it 'redirects to dashboard after' do
       sign_in @user
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 13}
+      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13}
       expect(response).to redirect_to users_dashboard_path
     end
-    it 'flashes error when price is not a number' do
-      sign_in @user
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 'pancras'}
-      expect(response).to render_template :edit
-      expect(flash[:alert]).to be
-    end
     it 'redirects to index when not logged in' do
-      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price_cents: 13}
+      put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13}
       expect(response).to redirect_to root_path
     end
   end

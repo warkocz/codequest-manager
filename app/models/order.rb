@@ -17,6 +17,7 @@ class Order < ActiveRecord::Base
   end
 
   def amount
-    dishes.inject(0) {|sum, dish| sum + dish.price_cents }
+    initial = Money.new(0, 'PLN')
+    dishes.inject(initial) {|sum, dish| sum + dish.price }
   end
 end

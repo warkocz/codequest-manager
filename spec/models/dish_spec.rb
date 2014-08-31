@@ -8,6 +8,10 @@ describe Dish, :type => :model do
   it {should validate_presence_of(:price_cents)}
   it {should validate_presence_of(:name)}
 
+  it 'should monetize price' do
+    expect(monetize(:price_cents)).to be_truthy
+  end
+
   describe '#ensure_uniqueness' do
     before do
       @user = create(:user)

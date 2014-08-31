@@ -1,7 +1,7 @@
 tr
   th= dish.user.name
   th= dish.name
-  th= dish.price_cents
+  th= dish.price
   th
     - if dish.belongs_to?(current_user)
       = link_to 'Edit', edit_order_dish_path(dish.order, dish), class: 'margin-right-small'
