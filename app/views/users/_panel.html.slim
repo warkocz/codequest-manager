@@ -1,0 +1,9 @@
+.clearfix
+  - if user
+    ul.login-list
+      li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
+    .right.panel-element
+      ' You have #{user.balance} PLN
+  - else
+    ul.login-list
+      li.button = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)

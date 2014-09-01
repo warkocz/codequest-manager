@@ -10,7 +10,7 @@ class DishesController < ApplicationController
   def create
     @dish = @order.dishes.build(dish_params)
     if @dish.save
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
       flash.now[:alert] = @dish.errors.full_messages.join(' ')
       render :new
@@ -23,7 +23,7 @@ class DishesController < ApplicationController
   def update
     @dish = Dish.find params[:id]
     if @dish.update(dish_params)
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
       flash.now[:alert] = @dish.errors.full_messages.join(' ')
       render :edit
@@ -32,15 +32,15 @@ class DishesController < ApplicationController
 
   def destroy
     @dish.delete
-    redirect_to users_dashboard_path
+    redirect_to dashboard_users_path
   end
 
   def copy
     @new_dish = @dish.copy(current_user)
     if @new_dish.save
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
-      redirect_to users_dashboard_path, alert: @new_dish.errors.full_messages.join(' ')
+      redirect_to dashboard_users_path, alert: @new_dish.errors.full_messages.join(' ')
     end
   end
 

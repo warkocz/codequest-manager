@@ -1,0 +1,4 @@
+h1 Edit your account, #{@user.name}
+= form_for @user do |f|
+  = f.label :deposit, 'How much money do you have'
+  = f.submit 'Update your account', class: 'button'

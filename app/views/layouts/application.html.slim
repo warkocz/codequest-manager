@@ -12,10 +12,5 @@ body
       p.notice= notice
       p.alert= alert
     .wrapper
-      ul.login-list
-        - if current_user
-          li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
-        - else
-          li.button = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
-
+      = render partial: 'users/panel', locals: {user: current_user}
       = yield

@@ -9,9 +9,9 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new order_params.merge(date: Date.today)
     if @order.save
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
-      render :new
+      redirect_to new_order_path, alert: @order.errors.full_messages.join(' ')
     end
   end
 
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find params[:id]
     if @order.update(order_params)
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
       redirect_to edit_order_path(@order), alert: @order.errors.full_messages.join(' ')
     end

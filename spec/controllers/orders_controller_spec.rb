@@ -28,7 +28,7 @@ describe OrdersController, :type => :controller do
     it 'redirects to dashboard after' do
       sign_in @user
       post :create, order: {user_id: @user.id, from: 'A restaurant'}
-      expect(response).to redirect_to users_dashboard_path
+      expect(response).to redirect_to dashboard_users_path
     end
 
     it 'redirects to index when not logged in' do
@@ -66,7 +66,7 @@ describe OrdersController, :type => :controller do
     it 'redirects to dashboard after' do
       sign_in @user
       put :update, id: @order.id, order: {user_id: @user.id}
-      expect(response).to redirect_to users_dashboard_path
+      expect(response).to redirect_to dashboard_users_path
     end
 
     it 'redirects to index when not logged in' do

@@ -32,7 +32,7 @@ describe DishesController, :type => :controller do
     it 'redirects to dashboard after' do
       sign_in @user
       post :create,order_id: @order.id, dish: {user_id: @user.id, name: 'Name', price_cents: 14}
-      expect(response).to redirect_to users_dashboard_path
+      expect(response).to redirect_to dashboard_users_path
     end
 
     it 'redirects to index when not logged in' do
@@ -71,7 +71,7 @@ describe DishesController, :type => :controller do
     it 'redirects to dashboard after' do
       sign_in @user
       put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13}
-      expect(response).to redirect_to users_dashboard_path
+      expect(response).to redirect_to dashboard_users_path
     end
     it 'redirects to index when not logged in' do
       put :update, order_id: @order.id, id: @dish.id, dish: {user_id: @user.id, name: 'Name', price: 13}
@@ -90,7 +90,7 @@ describe DishesController, :type => :controller do
     it 'redirects to dashboard after' do
       sign_in @user
       delete :destroy, order_id: @order.id, id: @dish.id
-      expect(response).to redirect_to users_dashboard_path
+      expect(response).to redirect_to dashboard_users_path
     end
     it 'decrements the dishes count' do
       sign_in @user
@@ -128,7 +128,7 @@ describe DishesController, :type => :controller do
     it 'redirects to dashboard' do
       sign_in @other_user
       get :copy, order_id: @order.id, id: @dish.id
-      expect(response).to redirect_to(users_dashboard_path)
+      expect(response).to redirect_to(dashboard_users_path)
     end
   end
 end
