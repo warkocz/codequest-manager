@@ -8,12 +8,12 @@ describe User do
   describe '#balance' do
     before do
       @user = create(:user)
-      @balance_one = create(:user_balance) do |balance|
+      @balance_one = build(:user_balance) do |balance|
         balance.user = @user
         balance.balance = 15
       end
       @balance_one.save
-      @balance_two = create(:user_balance) do |balance|
+      @balance_two = build(:user_balance) do |balance|
         balance.user = @user
         balance.balance = 17
       end

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def balance
-    user_balances.newest.first.decorate
+    user_balances.newest.first.decorate if user_balances.count > 0
   end
 
   def add_first_balance
