@@ -7,4 +7,4 @@ tr
       = link_to 'Edit', edit_order_dish_path(dish.order, dish), class: 'margin-right-small'
       = link_to 'Delete', order_dish_path(dish.order, dish), data: {confirm: 'Are you sure?'}, method: :delete
     - else
-      = link_to 'Copy', copy_order_dish_path(dish.order, dish)
+      = link_to 'Copy', copy_order_dish_path(dish.order, dish), data: {confirm: 'This will overwrite your current dish! Are you sure?'}

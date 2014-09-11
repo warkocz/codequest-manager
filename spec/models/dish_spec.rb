@@ -53,10 +53,24 @@ describe Dish, :type => :model do
       @dish.save
     end
     it 'should return an instance of dish' do
-      @new_dish = @dish.copy(@other_user)
-      expect(@new_dish.user).to eq(@other_user)
+      @new_dish = @dish.copy(@other)
+      expect(@new_dish.user).to eq(@other)
       expect(@new_dish.name).to eq(@dish.name)
       expect(@new_dish.order).to eq(@order)
+    end
+
+    describe 'with existing dish'
+    before do
+      @existing_dish = build(:dish) do |dish|
+        dish.user = @other
+        dish.order = @order
+      end
+      @existing_dish.save
+    end
+    it 'should delete existing dish first' do
+      expect {
+        @new_dish = @dish.copy(@other)
+      }.to change(Dish, :count).by(-1)
     end
   end
 end
