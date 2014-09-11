@@ -8,4 +8,12 @@ class OrderDecorator < Draper::Decorator
   def user_ordered?(user)
     dishes.find_by(user: user)
   end
+
+  def change_status_link
+    if in_progress?
+      h.link_to('Mark as ordered', h.change_status_order_path(order), class: 'button', method: :put)
+    elsif ordered?
+      h.link_to('Mark as delivered', h.change_status_order_path(order), class: 'button', method: :put)
+    end
+  end
 end

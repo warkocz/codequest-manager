@@ -7,6 +7,8 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :from, presence: true
 
+  enum status: [:in_progress, :ordered, :delivered]
+
   def self.todays_order
     find_by date: Date.today
   end
@@ -19,5 +21,13 @@ class Order < ActiveRecord::Base
   def amount
     initial = Money.new(0, 'PLN')
     dishes.inject(initial) {|sum, dish| sum + dish.price }
+  end
+
+  def change_status!
+    int_status = Order.statuses[status]
+    if int_status < Order.statuses.count - 1
+      self.status = int_status+1
+      save!
+    end
   end
 end

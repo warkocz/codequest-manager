@@ -2,5 +2,8 @@ section.orderer
   .row.light-weight Today <strong>#{order.user.name}</strong> pays.
   .row.light-weight We're ordering from: <strong>#{order.from}</strong>
   .row.light-weight The sum of the order is: <strong>#{order.amount}</strong>
+  .row.light-weight Order status is: <strong>#{order.status.humanize}</strong>
   .row
-    = link_to 'Change payer', edit_order_path(order), class: 'button'
+    - unless order.delivered?
+      = link_to 'Change payer', edit_order_path(order), class: 'button'
+    = order.change_status_link

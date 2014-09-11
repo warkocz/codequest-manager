@@ -7,6 +7,10 @@ describe Order, :type => :model do
   it {should callback(:ensure_one_order_per_day).before(:create)}
   it {should validate_presence_of(:user)}
 
+  it 'should have statuses' do
+    expect(Order.statuses).to eq({"in_progress"=>0, "ordered"=>1, "delivered"=>2})
+  end
+
   describe '#ensure_one_order_per_day' do
     it 'should return true if no orders for the day' do
       expect(Order).to receive(:find_by).with(date: Date.today).and_return(nil)
@@ -42,6 +46,31 @@ describe Order, :type => :model do
       expect(dish).to receive(:price).and_return(Money.new(15,'PLN'))
       expect(order).to receive(:dishes).and_return([dish])
       expect(order.amount).to eq(Money.new(15,'PLN'))
+    end
+  end
+
+  describe '#change_status!' do
+    before do
+      user = create(:user)
+      @order = build(:order) do |order|
+        order.user = user
+      end
+      @order.save
+    end
+    it 'should change from in_progress to ordered' do
+      @order.change_status!
+      expect(@order.ordered?).to be_truthy
+    end
+    it 'should change from ordered to delivered' do
+      @order.ordered!
+      @order.save
+      @order.change_status!
+      expect(@order.delivered?).to be_truthy
+    end
+    it 'should not change further' do
+      @order.delivered!
+      @order.change_status!
+      expect(@order.delivered?).to be_truthy
     end
   end
 

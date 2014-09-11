@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :assign_users, only: [:edit, :new]
+  before_filter :find_order, except: [:new, :create]
 
   def new
     @order = Order.new
@@ -16,11 +17,9 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order = Order.find params[:id]
   end
 
   def update
-    @order = Order.find params[:id]
     if @order.update(order_params)
       redirect_to dashboard_users_path
     else
@@ -28,15 +27,24 @@ class OrdersController < ApplicationController
     end
   end
 
+  def change_status
+    @order.change_status!
+    redirect_to dashboard_users_path
+  end
+
+  private
+
   def assign_users
     @users = User.all.map do |user|
       [user.name, user.id]
     end
   end
 
-  private
-
   def order_params
     params.require(:order).permit(:user_id, :from)
+  end
+
+  def find_order
+    @order = Order.find params[:id]
   end
 end

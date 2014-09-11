@@ -29,4 +29,18 @@ describe OrderDecorator do
     end
   end
 
+  describe '#change_status_link' do
+    it 'returns adequate when in_progress' do
+      @order.in_progress!
+      expect(@order.change_status_link).to match('Mark as ordered')
+    end
+    it 'returns adequate when ordered' do
+      @order.ordered!
+      expect(@order.change_status_link).to match('Mark as delivered')
+    end
+    it 'returns nil when delivered' do
+
+    end
+  end
+
 end

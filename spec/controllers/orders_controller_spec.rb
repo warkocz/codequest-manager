@@ -56,7 +56,7 @@ describe OrdersController, :type => :controller do
     end
   end
 
-  describe 'POST update' do
+  describe 'PUT update' do
     before do
       @order = build(:order) do |order|
         order.user = @user
@@ -69,6 +69,24 @@ describe OrdersController, :type => :controller do
       expect(response).to redirect_to dashboard_users_path
     end
 
+    it 'redirects to index when not logged in' do
+      put :update, id: @order.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'PUT change_status' do
+    before do
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+    end
+    it 'redirects to dashboard after' do
+      sign_in @user
+      put :change_status, id: @order.id
+      expect(response).to redirect_to dashboard_users_path
+    end
     it 'redirects to index when not logged in' do
       put :update, id: @order.id
       expect(response).to redirect_to root_path
