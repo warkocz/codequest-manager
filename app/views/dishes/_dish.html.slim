@@ -2,11 +2,4 @@ tr
   th= dish.user.name
   th= dish.name
   th= dish.price
-  th
-    - unless dish.order.delivered?
-      - if dish.belongs_to?(current_user)
-        = link_to 'Edit', edit_order_dish_path(dish.order, dish), class: 'margin-right-small'
-        - if dish.order.in_progress?
-          = link_to 'Delete', order_dish_path(dish.order, dish), data: {confirm: 'Are you sure?'}, method: :delete
-      - else
-        = link_to 'Copy', copy_order_dish_path(dish.order, dish), data: {confirm: 'This will overwrite your current dish! Are you sure?'}
+  th= dish.table_buttons(current_user)
