@@ -43,4 +43,13 @@ describe OrderDecorator do
     end
   end
 
+  describe '#ordered_by?' do
+    it 'returns true when user is the orderer' do
+      expect(@order.ordered_by?(@user)).to be_truthy
+    end
+    it 'returns false otherwise' do
+      other_user = create :other_user
+      expect(@order.ordered_by?(other_user)).to be_falsey
+    end
+  end
 end

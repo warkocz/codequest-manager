@@ -16,4 +16,8 @@ class OrderDecorator < Draper::Decorator
       h.link_to('Mark as delivered', h.change_status_order_path(order), class: 'button', method: :put)
     end
   end
+
+  def ordered_by?(comparison_user)
+    user == comparison_user
+  end
 end
