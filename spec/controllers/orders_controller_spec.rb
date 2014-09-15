@@ -92,4 +92,18 @@ describe OrdersController, :type => :controller do
       expect(response).to redirect_to root_path
     end
   end
+
+  describe 'GET shipping' do
+    before do
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+    end
+    it 'is success' do
+      sign_in @user
+      get :shipping, id: @order.id
+      expect(response).to render_template :shipping
+    end
+  end
 end

@@ -1,6 +1,8 @@
 class OrderDecorator < Draper::Decorator
   delegate_all
 
+  DELIVER_TEXT = 'Did you remember to add shipping cost?'
+
   def other_dishes(excluded)
     dishes.where.not(user: excluded)
   end
@@ -14,7 +16,7 @@ class OrderDecorator < Draper::Decorator
     if in_progress?
       link += h.link_to('Mark as ordered', h.change_status_order_path(order), class: 'button', method: :put)
     elsif ordered?
-      link += h.link_to('Mark as delivered', h.change_status_order_path(order), class: 'button', method: :put)
+      link += h.link_to('Mark as delivered', h.change_status_order_path(order), class: 'button', method: :put, data: {confirm: DELIVER_TEXT})
     end
     link
   end
@@ -27,6 +29,9 @@ class OrderDecorator < Draper::Decorator
     buttons = ''
     unless order.delivered?
       buttons += h.link_to 'Change payer', h.edit_order_path(object), class: 'button'
+    end
+    if order.ordered? && ordered_by?(user)
+      buttons += h.link_to 'Add shipping', h.shipping_order_path(object), class:'button'
     end
     if ordered_by?(user)
       buttons += change_status_link

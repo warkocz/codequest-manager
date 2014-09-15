@@ -32,6 +32,9 @@ class OrdersController < ApplicationController
     redirect_to dashboard_users_path
   end
 
+  def shipping
+  end
+
   private
 
   def assign_users
@@ -41,7 +44,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:user_id, :from)
+    params.require(:order).permit(:user_id, :from, :shipping)
   end
 
   def find_order

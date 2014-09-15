@@ -60,8 +60,8 @@ describe OrderDecorator do
       end
       it 'returns adequate ordered by current user' do
         expect(@order).to receive(:ordered_by?).with(@user).and_return(true)
-        expect(@order).to receive(:change_status_link).and_return('<a></a>')
-        expect(@order.summary_buttons(@user)).to eq('<a></a>')
+        expect(@order).to receive(:change_status_link).and_return('')
+        expect(@order.summary_buttons(@user)).to eq('')
       end
       it 'returns adequate ordered by other user' do
         expect(@order).to receive(:ordered_by?).with(@user).and_return(false)
@@ -69,17 +69,34 @@ describe OrderDecorator do
         expect(@order.summary_buttons(@user)).to eq('')
       end
     end
-    describe 'when not delivered' do
+    describe 'when in progress' do
       it 'returns adequate ordered by current user' do
         expect(@order).to receive(:ordered_by?).with(@user).and_return(true)
-        expect(@order).to receive(:change_status_link).and_return('<a></a>')
-        expected = '<a class=\"button\" href=\"/orders/.*?/edit\">Change payer</a><a></a>'
+        expect(@order).to receive(:change_status_link).and_return('Mark as ordered')
+        expected = 'href=\"/orders/.*?/edit\".*?Change payer.*?Mark as ordered'
         expect(@order.summary_buttons(@user)).to match(expected)
       end
       it 'returns adequate ordered by other user' do
         expect(@order).to receive(:ordered_by?).with(@user).and_return(false)
         expect(@order).to_not receive(:change_status_link)
-        expected = '<a class="button" href="/orders/.*?/edit">Change payer</a>'
+        expected = 'href="/orders/.*?/edit".*?Change payer'
+        expect(@order.summary_buttons(@user)).to match(expected)
+      end
+    end
+    describe 'when ordered' do
+      before do
+        @order.ordered!
+      end
+      it 'returns adequate ordered by current user' do
+        expect(@order).to receive(:ordered_by?).twice.with(@user).and_return(true)
+        expect(@order).to receive(:change_status_link).and_return('Mark as Delivered')
+        expected = 'href="/orders/.*?/edit".*?Change payer.*?href="/orders/.*?/shipping".*?Add shipping.*?Mark as Delivered'
+        expect(@order.summary_buttons(@user)).to match(expected)
+      end
+      it 'returns adequate ordered by other user' do
+        expect(@order).to receive(:ordered_by?).twice.with(@user).and_return(false)
+        expect(@order).to_not receive(:change_status_link)
+        expected = 'href="/orders/.*?/edit".*?Change payer'
         expect(@order.summary_buttons(@user)).to match(expected)
       end
     end

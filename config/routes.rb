@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :dishes, except: [:show] do
       get :copy, on: :member
     end
-    put :change_status, on: :member
+    member do
+      put :change_status
+      get :shipping
+      put :finalize
+    end
   end
 end

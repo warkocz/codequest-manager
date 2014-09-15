@@ -7,6 +7,9 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :from, presence: true
 
+  register_currency :pln
+  monetize :shipping_cents
+
   enum status: [:in_progress, :ordered, :delivered]
 
   def self.todays_order
