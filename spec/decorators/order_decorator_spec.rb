@@ -52,4 +52,36 @@ describe OrderDecorator do
       expect(@order.ordered_by?(other_user)).to be_falsey
     end
   end
+
+  describe '#summary_buttons' do
+    describe 'when delivered' do
+      before do
+        @order.delivered!
+      end
+      it 'returns adequate ordered by current user' do
+        expect(@order).to receive(:ordered_by?).with(@user).and_return(true)
+        expect(@order).to receive(:change_status_link).and_return('<a></a>')
+        expect(@order.summary_buttons(@user)).to eq('<a></a>')
+      end
+      it 'returns adequate ordered by other user' do
+        expect(@order).to receive(:ordered_by?).with(@user).and_return(false)
+        expect(@order).to_not receive(:change_status_link)
+        expect(@order.summary_buttons(@user)).to eq('')
+      end
+    end
+    describe 'when not delivered' do
+      it 'returns adequate ordered by current user' do
+        expect(@order).to receive(:ordered_by?).with(@user).and_return(true)
+        expect(@order).to receive(:change_status_link).and_return('<a></a>')
+        expected = '<a class=\"button\" href=\"/orders/.*?/edit\">Change payer</a><a></a>'
+        expect(@order.summary_buttons(@user)).to match(expected)
+      end
+      it 'returns adequate ordered by other user' do
+        expect(@order).to receive(:ordered_by?).with(@user).and_return(false)
+        expect(@order).to_not receive(:change_status_link)
+        expected = '<a class="button" href="/orders/.*?/edit">Change payer</a>'
+        expect(@order.summary_buttons(@user)).to match(expected)
+      end
+    end
+  end
 end

@@ -3,8 +3,4 @@ section.orderer
   .row.light-weight We're ordering from: <strong>#{order.from}</strong>
   .row.light-weight The sum of the order is: <strong>#{order.amount}</strong>
   .row.light-weight Order status is: <strong>#{order.status.humanize}</strong>
-  .row
-    - unless order.delivered?
-      = link_to 'Change payer', edit_order_path(order), class: 'button'
-    - if order.ordered_by?(current_user)
-      = order.change_status_link
+  .row= order.summary_buttons(current_user)
