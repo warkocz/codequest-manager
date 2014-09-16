@@ -30,7 +30,15 @@ class Order < ActiveRecord::Base
     int_status = Order.statuses[status]
     if int_status < Order.statuses.count - 1
       self.status = int_status+1
+      subtract_price if int_status == 1
       save!
+    end
+  end
+
+  def subtract_price
+    return if dishes_count == 0
+    dishes.each do |dish|
+      dish.subtract shipping/(dishes_count)
     end
   end
 end

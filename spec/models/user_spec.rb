@@ -33,4 +33,16 @@ describe User do
       expect {@user.add_first_balance}.to change(@user.user_balances, :count).by(1)
     end
   end
+
+  describe 'subtract' do
+    before do
+      @user = create(:user)
+      @user.user_balances.create(balance_cents: 5000)
+    end
+    it 'add a new reduced user balance' do
+      money = Money.new(1200,'PLN')
+      expect {@user.subtract(money)}.to change(@user.user_balances, :count).by(1)
+      expect(@user.balance.balance).to eq(Money.new(3800,'PLN'))
+    end
+  end
 end

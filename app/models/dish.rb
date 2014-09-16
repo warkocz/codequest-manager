@@ -27,4 +27,8 @@ class Dish < ActiveRecord::Base
     new_dish.user = new_user
     new_dish
   end
+
+  def subtract(shipping)
+    user.subtract(price+shipping)
+  end
 end

@@ -73,4 +73,25 @@ describe Dish, :type => :model do
       }.to change(Dish, :count).by(-1)
     end
   end
+
+  describe '#subtract' do
+    before do
+      @user = create(:user)
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+      @dish = build(:dish) do |dish|
+        dish.user = @user
+        dish.order = @order
+        dish.price_cents = 1200
+      end
+      @dish.save
+    end
+    it 'should reduce users balance' do
+      shipping = Money.new(1000, 'PLN')
+      expect(@user).to receive(:subtract).with(Money.new(2200, 'PLN'))
+      @dish.subtract shipping
+    end
+  end
 end

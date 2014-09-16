@@ -29,4 +29,8 @@ class User < ActiveRecord::Base
   def add_first_balance
     user_balances.create balance: 0
   end
+
+  def subtract(amount)
+    user_balances.create balance: balance.balance - amount
+  end
 end

@@ -58,20 +58,42 @@ describe Order, :type => :model do
       @order.save
     end
     it 'should change from in_progress to ordered' do
+      expect(@order).to_not receive(:subtract_price)
       @order.change_status!
       expect(@order.ordered?).to be_truthy
     end
     it 'should change from ordered to delivered' do
       @order.ordered!
       @order.save
+      expect(@order).to receive(:subtract_price)
       @order.change_status!
       expect(@order.delivered?).to be_truthy
     end
     it 'should not change further' do
       @order.delivered!
+      expect(@order).to_not receive(:subtract_price)
       @order.change_status!
       expect(@order.delivered?).to be_truthy
     end
   end
 
+  describe '#subtract_price' do
+    before do
+      user = create(:user)
+      @order = build(:order) do |order|
+        order.user = user
+        order.shipping = Money.new(2000, 'PLN')
+      end
+      @order.save
+    end
+    it 'should iterate over dishes and call #subtract' do
+      dish1 = double('Dish')
+      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'))
+      dish2 = double('Dish')
+      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'))
+      allow(@order).to receive(:dishes_count).and_return(2)
+      expect(@order).to receive(:dishes).and_return([dish1, dish2])
+      @order.subtract_price
+    end
+  end
 end
