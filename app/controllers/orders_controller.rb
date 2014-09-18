@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :assign_users, only: [:edit, :new]
-  before_filter :find_order, except: [:new, :create]
+  before_filter :find_order, except: [:new, :create, :index]
 
   def new
     @order = Order.new
@@ -33,6 +33,10 @@ class OrdersController < ApplicationController
   end
 
   def shipping
+  end
+
+  def index
+
   end
 
   private

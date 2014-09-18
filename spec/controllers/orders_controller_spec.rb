@@ -105,5 +105,18 @@ describe OrdersController, :type => :controller do
       get :shipping, id: @order.id
       expect(response).to render_template :shipping
     end
+    it 'redirects to index when not logged in' do
+      get :shipping, id: @order.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'GET index' do
+    it 'is success' do
+      sign_in @user
+      get :index
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:index)
+    end
   end
 end

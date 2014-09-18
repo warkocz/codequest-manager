@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     get :dashboard, on: :collection
   end
 
-  resources :orders, only: [:new, :create, :edit, :update] do
+  resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do
       get :copy, on: :member
     end

@@ -4,6 +4,8 @@
       li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
     .right.panel-element
       ' You have #{user.balance} PLN
+    .right.panel-element
+      = link_to 'Past Orders', orders_path
   - else
     ul.login-list
       li.button = link_to 'Sign in with Google', user_omniauth_authorize_path(:google_oauth2)
