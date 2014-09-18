@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :from, presence: true
 
+  scope :past, -> { where.not(date: Date.today).order('date desc')}
   register_currency :pln
   monetize :shipping_cents
 

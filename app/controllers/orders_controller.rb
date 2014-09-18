@@ -36,7 +36,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-
+    @orders = Order.past.decorate
   end
 
   private

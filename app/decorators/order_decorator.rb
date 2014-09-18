@@ -6,7 +6,7 @@ class OrderDecorator < Draper::Decorator
   DELIVER_TEXT = 'Did you remember to add shipping cost?'
 
   def current_user_ordered?
-    dishes.find_by(user: current_user)
+    dishes.find_by(user: current_user).present?
   end
 
   def change_status_link

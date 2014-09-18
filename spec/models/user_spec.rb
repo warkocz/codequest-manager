@@ -45,4 +45,14 @@ describe User do
       expect(@user.balance.balance).to eq(Money.new(3800,'PLN'))
     end
   end
+
+  describe '#to_s' do
+    before do
+      @user = create(:user)
+    end
+    it 'should call name' do
+      expect(@user).to receive(:name).and_return('mock name')
+      expect(@user.to_s).to eq('mock name')
+    end
+  end
 end

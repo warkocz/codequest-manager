@@ -33,4 +33,8 @@ class User < ActiveRecord::Base
   def subtract(amount)
     user_balances.create balance: balance.balance - amount
   end
+
+  def to_s
+    name
+  end
 end

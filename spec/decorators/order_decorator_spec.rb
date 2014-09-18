@@ -27,7 +27,7 @@ describe OrderDecorator do
 
     it 'returns true when users do not differ' do
       sign_in @other_user
-      expect(@order.current_user_ordered?).to eq(@dish)
+      expect(@order.current_user_ordered?).to be_truthy
     end
   end
 
