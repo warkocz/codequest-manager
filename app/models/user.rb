@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu)
 
   has_many :orders
-  has_many :user_balances
+  has_many :user_balances, dependent: :destroy
 
   after_create :add_first_balance
 
