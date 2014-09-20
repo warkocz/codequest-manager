@@ -90,8 +90,8 @@ describe Dish, :type => :model do
     end
     it 'should reduce users balance' do
       shipping = Money.new(1000, 'PLN')
-      expect(@user).to receive(:subtract).with(Money.new(2200, 'PLN'))
-      @dish.subtract shipping
+      expect(@user).to receive(:subtract).with(Money.new(2200, 'PLN'), :payer)
+      @dish.subtract shipping, :payer
     end
   end
 end

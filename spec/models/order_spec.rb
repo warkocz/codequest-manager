@@ -79,18 +79,18 @@ describe Order, :type => :model do
 
   describe '#subtract_price' do
     before do
-      user = create(:user)
+      @user = create(:user)
       @order = build(:order) do |order|
-        order.user = user
+        order.user = @user
         order.shipping = Money.new(2000, 'PLN')
       end
       @order.save
     end
     it 'should iterate over dishes and call #subtract' do
       dish1 = double('Dish')
-      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'))
+      expect(dish1).to receive(:subtract).with(Money.new(1000, 'PLN'), @user)
       dish2 = double('Dish')
-      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'))
+      expect(dish2).to receive(:subtract).with(Money.new(1000, 'PLN'), @user)
       allow(@order).to receive(:dishes_count).and_return(2)
       expect(@order).to receive(:dishes).and_return([dish1, dish2])
       @order.subtract_price

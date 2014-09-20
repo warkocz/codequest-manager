@@ -22,19 +22,27 @@ class User < ActiveRecord::Base
     user
   end
 
-  def balance
-    user_balances.newest.first.decorate if user_balances.count > 0
+  def balances
+    UserBalance.balances_for(self)
   end
 
   def add_first_balance
-    user_balances.create balance: 0
+    user_balances.create balance: 0, payer: self
   end
 
-  def subtract(amount)
-    user_balances.create balance: balance.balance - amount
+  def subtract(amount, payer)
+    user_balances.create balance: payer_balance(payer) - amount, payer: payer
   end
 
   def to_s
     name
+  end
+
+  def payer_balance(payer)
+    user_balances.newest_for(payer.id).balance
+  end
+
+  def total_balance
+    balances.map(&:balance).reduce :+
   end
 end

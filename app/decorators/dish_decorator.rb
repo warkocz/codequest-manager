@@ -8,7 +8,7 @@ class DishDecorator < Draper::Decorator
   end
 
   def table_buttons
-    edit_button.to_s + delete_button.to_s + copy_button.to_s
+    (edit_button.to_s + delete_button.to_s + copy_button.to_s).html_safe
   end
 
   def edit_button

@@ -3,7 +3,7 @@
     ul.login-list
       li.button = link_to 'Sign Out', destroy_user_session_path, method: 'delete'
     .right.panel-element
-      ' You have #{user.balance} PLN
+      ' You have #{user.total_balance} PLN
     .right.panel-element
       = link_to 'Past Orders', orders_path
     .right.panel-element

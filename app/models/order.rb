@@ -39,7 +39,7 @@ class Order < ActiveRecord::Base
   def subtract_price
     return if dishes_count == 0
     dishes.each do |dish|
-      dish.subtract shipping/(dishes_count)
+      dish.subtract shipping/(dishes_count), user
     end
   end
 end
