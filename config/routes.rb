@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   root 'pages#index'
 
-  authenticate :user, -> { |u| u.admin? } do
+  authenticate :user, lambda { |u| u.admin? } do
     mount Upmin::Engine => '/admin'
   end
 
