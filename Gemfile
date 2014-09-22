@@ -23,6 +23,8 @@ gem 'omniauth-google-oauth2'
 gem 'draper', '~> 1.3'
 gem 'money-rails', '0.12.0'
 
+gem 'upmin-admin'
+
 group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails', '~> 3.0.0.beta'

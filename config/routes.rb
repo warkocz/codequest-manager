@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
   root 'pages#index'
+
+  authenticate :user, -> { |u| u.admin? } do
+    mount Upmin::Engine => '/admin'
+  end
 
   resources :users, only: [:edit, :update] do
     get :dashboard, on: :collection
