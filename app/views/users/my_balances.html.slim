@@ -1,0 +1,12 @@
+h1.margin-bottom These are your balances
+h2.margin-bottom Your Total is: #{@user.total_balance}
+table
+  thead
+    tr
+      th width="200" Who to
+      th width="200" How Much
+      th width="200" Last updated
+      th width="200" Action
+  tbody
+    - @user.balances.each do |balance|
+      = render partial: 'user_balances/balance', locals: {user_balance: balance}

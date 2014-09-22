@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:edit, :update] do
     get :dashboard, on: :collection
+    get :my_balances, on: :member
   end
 
   resources :orders, except: [:destroy] do

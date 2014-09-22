@@ -39,6 +39,27 @@ describe UsersController, type: :controller do
     before do
       @user = create(:user)
     end
-    it 'succeeds'
+    it 'succeeds' do
+      # put :update, id: @user.id, user: {name: 'Pane'}
+      # expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe 'GET :my_balances' do
+    before do
+      @user = create(:user)
+    end
+    it 'succeeds' do
+      sign_in @user
+      get :my_balances, id: @user.id
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:my_balances)
+    end
+    it 'redirects a different user' do
+      other_user = create :other_user
+      sign_in other_user
+      get :my_balances, id: @user.id
+      expect(response).to redirect_to dashboard_users_path
+    end
   end
 end
