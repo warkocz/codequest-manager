@@ -2,5 +2,4 @@ tr
   td= user_balance.payer
   td= user_balance.balance
   td= user_balance.created_at.to_formatted_s(:short)
-  td
-    a href="#" Transfer
+  td= link_to 'Transfer', new_user_transfer_path(user_balance.payer)

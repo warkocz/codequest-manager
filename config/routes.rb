@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:edit, :update] do
+    resources :transfers, only: [:new, :create]
     get :dashboard, on: :collection
     get :my_balances, on: :member
   end

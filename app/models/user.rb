@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
   has_many :user_balances, dependent: :destroy
+  has_many :submitted_transfers, inverse_of: :from, class_name: 'Transfer', foreign_key: :from_id
+  has_many :received_transfers, inverse_of: :to, class_name: 'Transfer', foreign_key: :to_id
 
   after_create :add_first_balance
 

@@ -3,6 +3,8 @@ require 'spec_helper'
 describe User do
   it {should have_many(:orders)}
   it {should have_many(:user_balances)}
+  it {should have_many(:submitted_transfers)}
+  it {should have_many(:received_transfers)}
   it {should callback(:add_first_balance).after(:create)}
 
   describe '#balances' do
