@@ -44,6 +44,9 @@ describe DishDecorator do
   end
 
   describe '#edit_button' do
+    before do
+      @expected = '<a class="margin-right-small" href="\/orders\/.*?\/dishes\/.*?\/edit">Edit</a>'
+    end
     it 'returns nil when dish belongs to different user' do
       allow(@dish).to receive(:current_user).and_return(@other_user)
       expect(@dish.edit_button).to be_nil
@@ -52,15 +55,30 @@ describe DishDecorator do
       @order.delivered!
       expect(@dish.edit_button).to be_nil
     end
-    describe 'otherwise' do
+    describe 'order in_progress' do
+      it 'returns button when current_user' do
+        expect(@dish.edit_button).to match(@expected)
+      end
+      it 'returns nil when other user' do
+        allow(@dish).to receive(:current_user).and_return(@other_user)
+        expect(@dish.edit_button).to be_nil
+      end
+    end
+    describe 'order ordered' do
       before do
-        @expected = '<a class="margin-right-small" href="\/orders\/.*?\/dishes\/.*?\/edit">Edit</a>'
+        @order.ordered!
       end
-      it 'returns button when order is in_progress' do
+      it 'return button viewed by payer' do
+        allow(@dish).to receive(:current_user).and_return(@other_user)
+        allow(@dish).to receive(:order_by_current_user?).and_return(true)
         expect(@dish.edit_button).to match(@expected)
       end
-      it 'returns button when order is ordered' do
+      it 'returns button viewed by creator' do
         expect(@dish.edit_button).to match(@expected)
+      end
+      it 'returns nil viewed bo anybody else' do
+        allow(@dish).to receive(:current_user).and_return(@other_user)
+        expect(@dish.edit_button).to be_nil
       end
     end
   end
@@ -106,6 +124,17 @@ describe DishDecorator do
         @order.delivered!
         expect(@dish.copy_button).to be_nil
       end
+    end
+  end
+
+  describe '#order_by_current_user?' do
+    it 'returns true when is is' do
+      expect(@dish.order_by_current_user?).to be_truthy
+    end
+    it 'returns false otherwise' do
+      @order.user = @other_user
+      @order.save!
+      expect(@dish.order_by_current_user?).to be_falsey
     end
   end
 end
