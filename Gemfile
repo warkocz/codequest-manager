@@ -38,6 +38,7 @@ group :development do
   gem 'hirb', '0.7.2'
   gem 'better_errors', '1.1.0'
   gem 'binding_of_caller', '0.7.2'
+  gem 'letter_opener'
 end
 
 group :assets do
