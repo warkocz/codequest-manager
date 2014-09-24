@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:deposit)
+    params.require(:user).permit(:substract_from_self)
   end
 
   def find_user

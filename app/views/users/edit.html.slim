@@ -1,4 +1,6 @@
 h1 Edit your account, #{@user.name}
 = form_for @user do |f|
-  = f.label :deposit, 'How much money do you have'
+  .inner-wrapper.margin-bottom
+    = f.label :substract_from_self, 'Substract payments from yourself (this is useful when you maintain a seperate account for payments)', class: 'inline'
+    = f.check_box :substract_from_self, class: 'margin-left-small'
   = f.submit 'Update your account', class: 'button'

@@ -52,7 +52,7 @@ describe User do
     end
   end
 
-  describe 'subtract' do
+  describe '#subtract' do
     before do
       @user = create(:user)
       @payer = create(:other_user)
@@ -61,6 +61,18 @@ describe User do
       money = Money.new 1200, 'PLN'
       expect(@user).to receive(:payer_balance).with(@payer).and_return(Money.new(5000,'PLN'))
       expect {@user.subtract(money, @payer)}.to change(@user.user_balances, :count).by(1)
+    end
+    it 'doesnt reduce when substract_from_self is false' do
+      money = Money.new 1200, 'PLN'
+      expect(@user).to receive(:substract_from_self).and_return(false)
+      expect(@user).to_not receive(:payer_balance).with(@user)
+      expect {@user.subtract(money, @user)}.to_not change(@user.user_balances, :count)
+    end
+    it 'does reduce when substract_from_self is true' do
+      money = Money.new 1200, 'PLN'
+      expect(@user).to receive(:payer_balance).with(@user).and_return(Money.new(5000,'PLN'))
+      expect(@user).to receive(:substract_from_self).and_return(true)
+      expect {@user.subtract(money, @user)}.to change(@user.user_balances, :count).by(1)
     end
   end
 

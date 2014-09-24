@@ -9,6 +9,8 @@
     .right.panel-element
       = link_to 'Past Orders', orders_path
     .right.panel-element
+      = link_to 'User Settings', edit_user_path(user)
+    .right.panel-element
       = link_to 'Dashboard', dashboard_users_path
   - else
     ul.login-list
