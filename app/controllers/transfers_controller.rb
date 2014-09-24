@@ -26,6 +26,15 @@ class TransfersController < ApplicationController
     end
   end
 
+  def reject
+    if current_user == @transfer.to && @transfer.pending?
+      @transfer.rejected!
+      redirect_to my_balances_user_path(current_user)
+    else
+      wrong_user!
+    end
+  end
+
   private
 
   def transfer_params
