@@ -12,6 +12,13 @@ Rails.application.routes.draw do
     get :my_balances, on: :member
   end
 
+  resources :transfers, only: [] do
+    member do
+      put :accept
+      put :reject
+    end
+  end
+
   resources :orders, except: [:destroy] do
     resources :dishes, except: [:show] do
       get :copy, on: :member

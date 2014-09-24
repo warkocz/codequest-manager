@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def payer_balance(payer)
-    user_balances.newest_for(payer.id).balance
+    user_balances.newest_for(payer.id).try(:balance) || Money.new(0, 'PLN')
   end
 
   def total_balance

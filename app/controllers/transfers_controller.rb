@@ -1,6 +1,7 @@
 class TransfersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_user
+  before_filter :find_user, only: [:new, :create]
+  before_filter :find_transfer, except: [:new, :create]
 
   def new
     @transfer = @user.submitted_transfers.build
@@ -16,6 +17,15 @@ class TransfersController < ApplicationController
     end
   end
 
+  def accept
+    if current_user == @transfer.to && @transfer.pending?
+      @transfer.mark_as_accepted!
+      redirect_to my_balances_user_path(current_user)
+    else
+      wrong_user!
+    end
+  end
+
   private
 
   def transfer_params
@@ -24,5 +34,13 @@ class TransfersController < ApplicationController
 
   def find_user
     @user = User.find(params[:user_id])
+  end
+
+  def find_transfer
+    @transfer = Transfer.find(params[:id])
+  end
+
+  def wrong_user!
+    redirect_to root_path
   end
 end
