@@ -84,7 +84,7 @@ Rails.application.configure do
   config.force_ssl = true
 
   Dynopoker.configure do |config|
-    config.address = 'http://codequest-manager.herokuapp.com'
+    config.address = 'https://codequest-manager.herokuapp.com'
   end
 
   ActionMailer::Base.smtp_settings = {
