@@ -9,7 +9,6 @@ gem 'slim-rails', '2.1.5'
 gem 'skim', '0.9.3'
 
 gem 'jquery-rails', '3.1.1'
-gem 'turbolinks', '2.2.2'
 gem 'devise', '3.2.4'
 
 gem 'jbuilder', '~> 2.0'
@@ -33,6 +32,7 @@ group :development do
   gem 'hirb', '0.7.2'
   gem 'better_errors', '1.1.0'
   gem 'binding_of_caller', '0.7.2'
+  gem 'quiet_assets'
 end
 
 group :assets do
