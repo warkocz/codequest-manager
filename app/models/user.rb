@@ -1,21 +1,51 @@
 class User < ActiveRecord::Base
   ACCEPTABLE_EMAILS = %w(codequest.com codequest.eu)
 
-  has_many :orders, as: :orderer
+  has_many :orders
+  has_many :user_balances, dependent: :destroy
+  has_many :submitted_transfers, inverse_of: :from, class_name: 'Transfer', foreign_key: :from_id
+  has_many :received_transfers, inverse_of: :to, class_name: 'Transfer', foreign_key: :to_id
+
+  after_create :add_first_balance
 
   devise :database_authenticatable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
-  def self.from_omniauth(params)
-    user = find_by(params.slice(:provider, :uid))
-    if user.nil? && params.info.email.split('@')[1].in?(ACCEPTABLE_EMAILS)
+  def self.from_omniauth(data)
+    user = find_by(data.slice(:provider, :uid).to_h)
+    if user.nil? && data.info.email.split('@')[1].in?(ACCEPTABLE_EMAILS)
       user = User.new({
-                          provider: params.provider,
-                          uid: params.uid,
-                          name: params.info.name,
-                          email: params.info.email
+                          provider: data.provider,
+                          uid: data.uid,
+                          name: data.info.name,
+                          email: data.info.email
                       })
       user.save!
     end
     user
+  end
+
+  def balances
+    UserBalance.balances_for(self)
+  end
+
+  def add_first_balance
+    user_balances.create balance: 0, payer: self
+  end
+
+  def subtract(amount, payer)
+    return if self == payer && !substract_from_self
+    user_balances.create balance: payer_balance(payer) - amount, payer: payer
+  end
+
+  def to_s
+    name
+  end
+
+  def payer_balance(payer)
+    user_balances.newest_for(payer.id).try(:balance) || Money.new(0, 'PLN')
+  end
+
+  def total_balance
+    balances.map(&:balance).reduce :+
   end
 end

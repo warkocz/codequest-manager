@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807220853) do
+ActiveRecord::Schema.define(version: 20140924205046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "dishes", force: true do |t|
     t.string   "name"
-    t.decimal  "price",      default: 0.0
+    t.integer  "price_cents", default: 0
     t.integer  "user_id"
     t.integer  "order_id"
     t.datetime "created_at"
@@ -30,12 +30,41 @@ ActiveRecord::Schema.define(version: 20140807220853) do
 
   create_table "orders", force: true do |t|
     t.date     "date"
-    t.integer  "orderer_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "dishes_count",   default: 0
+    t.string   "from"
+    t.integer  "status",         default: 0
+    t.integer  "shipping_cents", default: 0
   end
 
-  add_index "orders", ["orderer_id"], name: "index_orders_on_orderer_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "transfers", force: true do |t|
+    t.integer  "from_id"
+    t.integer  "to_id"
+    t.integer  "amount_cents"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "status",       default: 0
+  end
+
+  add_index "transfers", ["from_id"], name: "index_transfers_on_from_id", using: :btree
+  add_index "transfers", ["to_id"], name: "index_transfers_on_to_id", using: :btree
+
+  create_table "user_balances", force: true do |t|
+    t.integer  "balance_cents"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "recipient_id"
+    t.integer  "payer_id"
+  end
+
+  add_index "user_balances", ["payer_id"], name: "index_user_balances_on_payer_id", using: :btree
+  add_index "user_balances", ["recipient_id"], name: "index_user_balances_on_recipient_id", using: :btree
+  add_index "user_balances", ["user_id"], name: "index_user_balances_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",               default: "",    null: false
@@ -52,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140807220853) do
     t.string   "uid"
     t.string   "name"
     t.boolean  "admin",               default: false
+    t.boolean  "substract_from_self", default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,0 +1,6 @@
+section.orderer
+  .row.light-weight Today <strong>#{order.user.name}</strong> pays.
+  .row.light-weight We're ordering from: <strong>#{order.from}</strong>
+  .row.light-weight The sum of the order (with shipping) is: <strong>#{order.amount+order.shipping}</strong>
+  .row.light-weight Order status is: <strong>#{order.status.humanize}</strong>
+  .row= order.summary_buttons

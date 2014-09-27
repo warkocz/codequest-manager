@@ -1,12 +1,9 @@
 table
   thead
     tr
-      th width="200" User
+      th width="400" User
       th width="200" Dish
       th width="200" Price
+      th width="200" Action
   tbody
-    - dishes.each do |dish|
-      tr
-        th= dish.user.name
-        th= dish.name
-        th= dish.price
+    = render dishes.by_date.decorate

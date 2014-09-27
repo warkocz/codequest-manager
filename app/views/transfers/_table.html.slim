@@ -1,0 +1,19 @@
+- action ||= false
+table
+  thead
+    tr
+      th width="200" = column.to_s.capitalize
+      th width="200" Amount
+      th width="200" Submitted
+      th width="200" Status
+      - if action
+        th width="200" Action
+  tbody
+  - transfers.decorate.each do |transfer|
+    tr
+      td= transfer.send(column)
+      td= transfer.amount
+      td= transfer.created_at.to_formatted_s(:short)
+      td= transfer.status
+      - if action
+        td= transfer.actions

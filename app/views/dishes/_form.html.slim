@@ -1,0 +1,12 @@
+- if @dish.persisted?
+  h1 Edit Your Dish
+- else
+  h1 New Dish For Today
+= form_for [@order, @dish] do |f|
+  = f.label :name, 'Dish Name'
+  = f.text_field :name
+  = f.label :price, 'Dish Price'
+  = f.text_field :price, autocomplete: 'off'
+  - user_id = if @dish.persisted? then @dish.user_id else current_user.id end
+  = f.hidden_field :user_id, value: user_id
+  = f.submit class: 'button'

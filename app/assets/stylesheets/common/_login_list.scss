@@ -1,12 +1,6 @@
-.wrapper {
-  padding-top: 120px;
-  position: relative;
-}
-
 .login-list {
-  position: absolute;
-  top: 10px;
-  right: 0;
+  margin: 10px 0 30px;
+  float: right;
 
   li:nth-child(2) {
     margin-left: 10px;
@@ -17,4 +11,10 @@
     text-decoration: none;
     vertical-align: middle;
   }
+}
+
+.panel-element {
+  font-weight: 100;
+  margin-right: 10px;
+  padding-top: 25px;
 }

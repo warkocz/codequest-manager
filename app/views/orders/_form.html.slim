@@ -3,6 +3,9 @@
 - else
   h1 New order
 = form_for @order do |f|
-  - selected = @order.orderer_id if @order.persisted?
-  = f.select :orderer_id, options_for_select(@users, selected)
+  - selected = @order.user_id if @order.persisted?
+  = f.label :user_id, 'Payer'
+  = f.select :user_id, options_for_select(@users, selected)
+  = f.label :from, 'Restaurant'
+  = f.text_field :from, placeholder: 'Where are we ordering from?'
   = f.submit class: 'button'

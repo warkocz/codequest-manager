@@ -1,0 +1,20 @@
+= form_for @order do |f|
+  .row
+    ' Total price of the order:
+    span#order-total=@order.amount
+  = f.label :shipping, 'Shipping Cost'
+  = f.text_field :shipping
+  .row
+    ' Final Quota:
+    span#total= @order.amount + @order.shipping
+  = f.submit 'Add shipping', class: 'button'
+
+javascript:
+  var shippingInput = $('#order_shipping');
+  var orderTotal = $('#order-total');
+  updateTotal = function() {
+    var shipping = parseFloat(shippingInput.val());
+    var order = parseFloat(orderTotal.text());
+    $('#total').text(shipping+order);
+  };
+  shippingInput.on('keyup', updateTotal);

@@ -1,32 +1,45 @@
 class OrdersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :assign_users, only: [:edit, :new]
+  before_filter :find_order, except: [:new, :create, :index]
 
   def new
     @order = Order.new
   end
 
   def create
-    @order = Order.new order_params
+    @order = Order.new order_params.merge(date: Date.today)
     if @order.save
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
-      render :new
+      redirect_to new_order_path, alert: @order.errors.full_messages.join(' ')
     end
   end
 
   def edit
-    @order = Order.find params[:id]
   end
 
   def update
-    @order = Order.find params[:id]
     if @order.update(order_params)
-      redirect_to users_dashboard_path
+      redirect_to dashboard_users_path
     else
-      render :edit
+      redirect_to edit_order_path(@order), alert: @order.errors.full_messages.join(' ')
     end
   end
+
+  def change_status
+    @order.change_status!
+    redirect_to dashboard_users_path
+  end
+
+  def shipping
+  end
+
+  def index
+    @orders = Order.past.decorate
+  end
+
+  private
 
   def assign_users
     @users = User.all.map do |user|
@@ -34,9 +47,11 @@ class OrdersController < ApplicationController
     end
   end
 
-  private
-
   def order_params
-    params.require(:order).permit(:orderer_id).merge(date: Date.today)
+    params.require(:order).permit(:user_id, :from, :shipping)
+  end
+
+  def find_order
+    @order = Order.find params[:id]
   end
 end

@@ -21,14 +21,14 @@ describe OrdersController, :type => :controller do
     it 'creates an order' do
       sign_in @user
       expect {
-        post :create, order: {orderer_id: @user.id}
+        post :create, order: {user_id: @user.id, from: 'A restaurant'}
       }.to change(Order, :count)
     end
 
     it 'redirects to dashboard after' do
       sign_in @user
-      post :create, order: {orderer_id: @user.id}
-      expect(response).to redirect_to users_dashboard_path
+      post :create, order: {user_id: @user.id, from: 'A restaurant'}
+      expect(response).to redirect_to dashboard_users_path
     end
 
     it 'redirects to index when not logged in' do
@@ -40,7 +40,7 @@ describe OrdersController, :type => :controller do
   describe 'GET edit' do
     before do
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save
     end
@@ -56,22 +56,67 @@ describe OrdersController, :type => :controller do
     end
   end
 
-  describe 'POST update' do
+  describe 'PUT update' do
     before do
       @order = build(:order) do |order|
-        order.orderer = @user
+        order.user = @user
       end
       @order.save
     end
     it 'redirects to dashboard after' do
       sign_in @user
-      put :update, id: @order.id, order: {orderer_id: @user.id}
-      expect(response).to redirect_to users_dashboard_path
+      put :update, id: @order.id, order: {user_id: @user.id}
+      expect(response).to redirect_to dashboard_users_path
     end
 
     it 'redirects to index when not logged in' do
       put :update, id: @order.id
       expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'PUT change_status' do
+    before do
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+    end
+    it 'redirects to dashboard after' do
+      sign_in @user
+      put :change_status, id: @order.id
+      expect(response).to redirect_to dashboard_users_path
+    end
+    it 'redirects to index when not logged in' do
+      put :update, id: @order.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'GET shipping' do
+    before do
+      @order = build(:order) do |order|
+        order.user = @user
+      end
+      @order.save
+    end
+    it 'is success' do
+      sign_in @user
+      get :shipping, id: @order.id
+      expect(response).to render_template :shipping
+    end
+    it 'redirects to index when not logged in' do
+      get :shipping, id: @order.id
+      expect(response).to redirect_to root_path
+    end
+  end
+
+  describe 'GET index' do
+    it 'is success' do
+      sign_in @user
+      get :index
+      expect(response).to have_http_status(:success)
+      expect(response).to render_template(:index)
     end
   end
 end
