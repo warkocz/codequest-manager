@@ -1,10 +1,14 @@
 class TransfersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_user, only: [:new, :create]
+  before_filter :find_user, only: [:create]
   before_filter :find_transfer, except: [:new, :create]
 
   def new
-    @transfer = @user.submitted_transfers.build
+    @transfer = Transfer.new
+    @users = User.all.map do |user|
+      [user.name, user.id]
+    end
+    @users.unshift ['Select destination', '']
   end
 
   def create
@@ -13,7 +17,7 @@ class TransfersController < ApplicationController
     if @transfer.save
       redirect_to my_balances_user_path(current_user), notice: 'Transfer successfully submitted'
     else
-      redirect_to new_user_transfer_path(@user), alert: @transfer.errors.full_messages.join(' ')
+      redirect_to new_transfer_path, alert: @transfer.errors.full_messages.join(' ')
     end
   end
 
@@ -42,7 +46,11 @@ class TransfersController < ApplicationController
   end
 
   def find_user
-    @user = User.find(params[:user_id])
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
+    else
+      redirect_to(new_transfer_path, alert: 'Please select transfer destination')
+    end
   end
 
   def find_transfer

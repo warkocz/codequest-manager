@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     mount Upmin::Engine => '/admin'
   end
 
+  resources :transfers, only: [:new, :create]
   resources :users, only: [:edit, :update] do
-    resources :transfers, only: [:new, :create]
     get :dashboard, on: :collection
     get :my_balances, on: :member
   end

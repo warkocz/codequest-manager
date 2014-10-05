@@ -1,5 +1,7 @@
 h1 Time to pay!
 = form_for [@user, @transfer] do |f|
+  = label_tag :user_id, 'Destination'
+  = select_tag :user_id, options_for_select(@users, placeholder: 'Select destination')
   = f.label :amount, 'Transfer Amount'
   = f.text_field :amount, autocomplete: 'off'
   = f.submit 'Submit Transfer', class: 'button'

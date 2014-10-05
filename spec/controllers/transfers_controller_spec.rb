@@ -32,6 +32,11 @@ describe TransfersController, type: :controller do
       post :create, user_id: @user.id, transfer: {amount: 14}
       expect(response).to redirect_to root_path
     end
+    it 'redirects to new when no user' do
+      sign_in @other_user
+      post :create, user_id: '', transfer: {amount: 14}
+      expect(response).to redirect_to(new_transfer_path)
+    end
   end
 
   describe 'PUT to accept' do
