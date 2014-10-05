@@ -89,4 +89,67 @@ describe UserBalance, :type => :model do
       expect(UserBalance.payers_ids(@user)).to contain_exactly(@other_user.id, @user.id)
     end
   end
+
+  describe '.debtors_ids' do
+    before do
+      @user = create :user
+      @other_user = create :other_user
+      @balance_one = build :user_balance do |b|
+        b.user = @user
+        b.payer = @user
+        b.balance = 10
+      end
+      @balance_one.save!
+      @balance_three = build :user_balance do |b|
+        b.payer = @user
+        b.user = @other_user
+        b.balance = 40
+      end
+      @balance_three.save!
+    end
+    it 'returns adequate ids' do
+      expect(UserBalance.debtors_ids(@user)).to contain_exactly(@other_user.id, @user.id)
+    end
+  end
+
+  describe '.debts_to' do
+    before do
+      @user = create :user
+      @other_user = create :other_user
+      @balance_one = build :user_balance do |b|
+        b.user = @user
+        b.payer = @user
+        b.balance = 10
+      end
+      @balance_one.save!
+      @balance_two = build :user_balance do |b|
+        b.user = @user
+        b.payer = @other_user
+        b.balance = 40
+      end
+      @balance_two.save!
+      @balance_three = build :user_balance do |b|
+        b.user = @user
+        b.payer = @other_user
+        b.balance = 40
+      end
+      @balance_three.save!
+      @balance_four = build :user_balance do |b|
+        b.user = @other_user
+        b.payer = @user
+        b.balance = 40
+      end
+      @balance_four.save!
+      @balance_five = build :user_balance do |b|
+        b.user = @other_user
+        b.payer = @other_user
+        b.balance = 40
+      end
+      @balance_five.save!
+    end
+    it 'should call adequate methods' do
+      expect(UserBalance).to receive(:debtors_ids).with(@user).and_return([@user.id, @other_user.id])
+      expect(UserBalance.debts_to(@user)).to contain_exactly(@balance_four, @balance_one)
+    end
+  end
 end

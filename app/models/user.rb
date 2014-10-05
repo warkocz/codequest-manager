@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :orders
   has_many :user_balances, dependent: :destroy
+  has_many :balances_as_payer, class_name: 'UserBalance', inverse_of: :payer, foreign_key: :payer_id
   has_many :submitted_transfers, inverse_of: :from, class_name: 'Transfer', foreign_key: :from_id
   has_many :received_transfers, inverse_of: :to, class_name: 'Transfer', foreign_key: :to_id
 
@@ -26,6 +27,10 @@ class User < ActiveRecord::Base
 
   def balances
     UserBalance.balances_for(self)
+  end
+
+  def debts
+    UserBalance.debts_to(self)
   end
 
   def add_first_balance

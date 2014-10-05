@@ -19,4 +19,15 @@ class UserBalance < ActiveRecord::Base
   def self.payers_ids(user)
     user.user_balances.select('payer_id').uniq.map(&:payer_id)
   end
+
+  def self.debts_to(user)
+    debtors_ids(user).map do |debtor_id|
+      debtor = User.find(debtor_id)
+      debtor.user_balances.newest_for(user)
+    end
+  end
+
+  def self.debtors_ids(user)
+    user.balances_as_payer.select('user_id').uniq.map(&:user_id)
+  end
 end

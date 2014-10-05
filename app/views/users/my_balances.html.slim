@@ -1,4 +1,4 @@
-h2.margin-bottom Your total is: #{@user.total_balance}
+h2.margin-bottom Your balance is: #{@user.total_balance}
 table
   thead
     tr
@@ -8,7 +8,7 @@ table
   tbody
     - @user.balances.each do |balance|
       = render partial: 'user_balances/balance', locals: {user_balance: balance}
-h2.margin-bottom People's balances against you are
+h2.margin-bottom People owe you
 table
   thead
     tr
@@ -16,6 +16,9 @@ table
       th width="200" How Much
       th width="200" Last updated
   tbody
+    - @user.debts.each do |balance|
+      = render partial:  'user_balances/debt', locals: {user_balance: balance}
+
 
 h2.margin-bottom Received Transfers
 = render partial: 'transfers/table', locals: {transfers: @user.received_transfers, column: :from, action: true}

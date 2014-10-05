@@ -3,6 +3,7 @@ require 'spec_helper'
 describe User do
   it {should have_many(:orders)}
   it {should have_many(:user_balances)}
+  it {should have_many(:balances_as_payer)}
   it {should have_many(:submitted_transfers)}
   it {should have_many(:received_transfers)}
   it {should callback(:add_first_balance).after(:create)}
@@ -31,12 +32,9 @@ describe User do
       @balance_three.save!
     end
     it 'should return adequate' do
-      # puts @user.balances
       expect(UserBalance).to receive(:balances_for).with(@user).and_return([@balance_two, @balance_three])
       balances = @user.balances
       expect(balances.count).to be(2)
-      # expect(@user.balances.balance_cents).to_not be(1500)
-      # expect(@user.balances.balance_cents).to be(1700)
     end
   end
 
@@ -122,6 +120,16 @@ describe User do
     it 'returns proper balance' do
       money = Money.new 5000, 'PLN'
       expect(@user.total_balance).to eq(money)
+    end
+  end
+
+  describe '#debts' do
+    before do
+      @user = create :user
+    end
+    it 'returns adequate' do
+      expect(UserBalance).to receive(:debts_to).with(@user).and_return(:debts)
+      expect(@user.debts).to be(:debts)
     end
   end
 end
