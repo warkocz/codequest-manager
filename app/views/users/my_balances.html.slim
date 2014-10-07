@@ -18,6 +18,9 @@ table
   tbody
     - @user.debts.each do |balance|
       = render partial:  'user_balances/debt', locals: {user_balance: balance}
+    tr
+      td Total
+      td=@user.total_debt
 
 
 h2.margin-bottom Received Transfers

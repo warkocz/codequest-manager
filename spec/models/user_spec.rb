@@ -132,4 +132,26 @@ describe User do
       expect(@user.debts).to be(:debts)
     end
   end
+
+  describe '#total_debt' do
+    before do
+      @user = create :user
+      other_user = create :other_user
+      @balance_one = build :user_balance do |b|
+        b.user = @user
+        b.payer = @user
+        b.balance = 40
+      end
+      @balance_two = build :user_balance do |b|
+        b.user = other_user
+        b.payer = @user
+        b.balance = 30
+      end
+      expect(@user).to receive(:debts).and_return([@balance_one, @balance_two])
+    end
+    it 'returns proper balance' do
+      money = Money.new 7000, 'PLN'
+      expect(@user.total_debt).to eq(money)
+    end
+  end
 end

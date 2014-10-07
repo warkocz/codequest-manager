@@ -26,11 +26,11 @@ class User < ActiveRecord::Base
   end
 
   def balances
-    UserBalance.balances_for(self)
+    @balances ||= UserBalance.balances_for(self)
   end
 
   def debts
-    UserBalance.debts_to(self)
+    @debts ||= UserBalance.debts_to(self)
   end
 
   def add_first_balance
@@ -52,5 +52,9 @@ class User < ActiveRecord::Base
 
   def total_balance
     balances.map(&:balance).reduce :+
+  end
+
+  def total_debt
+    debts.inject(Money.new(0,'PLN')) {|sum, debt| sum = sum+debt.balance}
   end
 end
