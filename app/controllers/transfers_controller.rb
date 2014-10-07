@@ -5,7 +5,7 @@ class TransfersController < ApplicationController
 
   def new
     @transfer = Transfer.new
-    @users = User.all.map do |user|
+    @users = User.all.by_name.map do |user|
       [user.name, user.id]
     end
     @users.unshift ['Select destination', '']

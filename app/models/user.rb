@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   after_create :add_first_balance
 
+  scope :by_name, -> { order 'name' }
+
   devise :database_authenticatable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:google_oauth2]
 
   def self.from_omniauth(data)

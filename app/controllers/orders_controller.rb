@@ -42,7 +42,7 @@ class OrdersController < ApplicationController
   private
 
   def assign_users
-    @users = User.all.map do |user|
+    @users = User.all.by_name.map do |user|
       [user.name, user.id]
     end
   end
