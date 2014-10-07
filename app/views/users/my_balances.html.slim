@@ -1,4 +1,6 @@
 h2.margin-bottom Your balance is: #{@user.total_balance}
+.margin-bottom
+  = link_to 'New Transfer', new_transfer_path, class: 'button'
 table
   thead
     tr

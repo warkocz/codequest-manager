@@ -1,5 +1,6 @@
 h1 This is the user dashboard
 .order-wrapper
+  = link_to 'Past Orders', orders_path, class: 'button'
   - if @order
     = render partial: 'orders/summary', locals: {order: @order}
   - else
