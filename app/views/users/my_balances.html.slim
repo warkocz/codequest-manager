@@ -25,6 +25,6 @@ table
 
 
 h2.margin-bottom Received Transfers
-= render partial: 'transfers/table', locals: {transfers: @user.received_transfers, column: :from, action: true}
+= render partial: 'transfers/table', locals: {transfers: @user.received_transfers.newest_first, column: :from, action: true}
 h2.margin-bottom Submitted Transfers
-= render partial: 'transfers/table', locals: {transfers: @user.submitted_transfers, column: :to}
+= render partial: 'transfers/table', locals: {transfers: @user.submitted_transfers.newest_first, column: :to}
